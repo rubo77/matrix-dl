@@ -58,7 +58,7 @@ class Colors:
 
 class MatrixLogGetter:
     def __init__(self):
-        self.matrix_url = "https://matrix.igalia.com"
+        self.matrix_url = "https://matrix.org"
         self.username = None
         self.password = os.environ.get('MATRIX_PASSWORD', None)
         self.room = None
@@ -165,7 +165,8 @@ if __name__ == "__main__":
                         help="Will be asked later if not provided via this "
                              "option or MATRIX_PASSWORD environment variable")
     parser.add_argument('--matrix-url', default=getter.matrix_url,
-                        help="[default: %(default)s]")
+                        help="URL of your homeserver (without trailing slash) "
+                             "[default: %(default)s]")
     DATE_FORMAT_STR = '(format %s) [default: %%(default)s]' \
                       % DATE_FORMAT.replace('%', '%%')
     parser.add_argument('--start-date', default="01012017",
