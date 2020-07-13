@@ -105,12 +105,17 @@ class MatrixLogGetter:
 
     def download(self, room):
         token = room.prev_batch
+        direction = 'f'
         while True:
             res = self.client.api.get_room_messages(
-                room.room_id, token, 'b', limit=10000)
+                room.room_id, token, direction, limit=10000)
             token = res['end']
             count = 0
-            for event in res['chunk']:
+            chunk = res['chunk']
+            if direction != 'b':
+                chunk = reversed(res['chunk'])
+                direction = 'b'
+            for event in chunk:
                 count += 1
                 if event['type'] == 'm.room.message':
                     self.messages.insert(0, event)
